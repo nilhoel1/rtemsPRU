@@ -89,6 +89,9 @@ librtemsbsp_a_SOURCES += ../../../../../../bsps/arm/beagle/clock/clock.c
 librtemsbsp_a_SOURCES += ../../../../../../bsps/arm/shared/cache/cache-cp15.c
 librtemsbsp_a_SOURCES += ../../../../../../bsps/arm/shared/cache/cache-v7ar-disable-data.S
 
+# PRUSS
+librtemsbsp_a_SOURCES += ../../../../../../bsps/arm/beagle/pruss/prussdrv.c
+
 ###############################################################################
 #                  Special Rules                                              #
 ###############################################################################
