@@ -47,7 +47,11 @@
  */
 
 
+#ifdef __rtems__
 #include <bsp/prussdrv.h>
+#else /* __rtems__ */
+#include <prussdrv.h>
+#endif /* __rtems */
 #include "__prussdrv.h"
 #include <stdio.h>
 #include <sys/types.h>
