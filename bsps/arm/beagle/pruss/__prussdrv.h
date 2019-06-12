@@ -59,7 +59,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <unistd.h>
+#ifndef __rtems__
+#include <linux/unistd.h>
+#endif /* __rtems__ */
 
 #define DISABLE_L3RAM_SUPPORT
 
