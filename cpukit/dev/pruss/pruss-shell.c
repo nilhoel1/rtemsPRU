@@ -54,6 +54,7 @@ rtems_pruss_shell_stop (const rtems_printer* printer,
                         int                  argc,
                         char*                argv[])
 {
+}
 
 /**
  * Parse an argument.
