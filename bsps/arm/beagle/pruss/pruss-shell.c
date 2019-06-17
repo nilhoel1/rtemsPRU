@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include <prussdrv.h>
-#include "pruss_intc_mapping.h"
+#include <pruss_intc_mapping.h>
 
 #include <rtems/printer.h>
 
