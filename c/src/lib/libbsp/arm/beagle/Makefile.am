@@ -91,6 +91,7 @@ librtemsbsp_a_SOURCES += ../../../../../../bsps/arm/shared/cache/cache-v7ar-disa
 
 # PRUSS
 librtemsbsp_a_SOURCES += ../../../../../../bsps/arm/beagle/pruss/ti/prussdrv.c
+librtemsbsp_a_SOURCES += ../../../../../../bsps/arm/beagle/pruss/pruss-shell.c
 
 ###############################################################################
 #                  Special Rules                                              #

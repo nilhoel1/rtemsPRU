@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <prussdrv.h>
-#include <pruss_intc_mapping.h>
+#include <bsp/prussdrv.h>
+#include <bsp/pruss_intc_mapping.h>
+#include <bsp/pruss-shell.h>
 
 #include <rtems/printer.h>
 
@@ -20,36 +21,42 @@ typedef struct {
   const char*                 help;    /**< The sub-command's help. */
 }rtems_pruss_shell_cmd;
 
-static int
+int
 rtems_pruss_shell_status (const rtems_printer* printer,
                         int                  argc,
                         char*                argv[])
 {
 }
 
-static int
+/* Tries to Initialise PRU0 and returns -1 if failed. */
+int
 rtems_pruss_shell_init (const rtems_printer* printer,
                         int                  argc,
                         char*                argv[])
 {
-
+  prussdrv_init();
+  if (prussdrv_open(PRU_EVTOUT_0) == -1) {
+    rtems_printf (printer, "prussdrv_open() failed\n");
+    return 1;
+  }
+  return 0;
 }
 
-static int
+int
 rtems_pruss_shell_load (const rtems_printer* printer,
                         int                  argc,
                         char*                argv[])
 {
 }
 
-static int
+int
 rtems_pruss_shell_run (const rtems_printer* printer,
                         int                  argc,
                         char*                argv[])
 {
 }
 
-static int
+int
 rtems_pruss_shell_stop (const rtems_printer* printer,
                         int                  argc,
                         char*                argv[])
@@ -184,7 +191,7 @@ rtems_pruss_shell_usage (const rtems_printer* printer, const char* arg)
 int
 rtems_pruss_shell_command (int argc, char* argv[])
 {
-  const rtems_pruss_shell_cmd_shell_cmd table[] =
+  const rtems_pruss_shell_cmd table[] =
   {
     { "status", rtems_pruss_shell_status,
       "Display the status of the PRU" },
@@ -193,7 +200,7 @@ rtems_pruss_shell_command (int argc, char* argv[])
     { "load", rtems_pruss_shell_load,
       "\tLoad code in the PRU" },
     { "run", rtems_pruss_shell_run,
-      "\tActivate the PRU" }
+      "\tActivate the PRU" },
     { "stop", rtems_pruss_shell_stop,
       "\tStop the PRU" }
   };
