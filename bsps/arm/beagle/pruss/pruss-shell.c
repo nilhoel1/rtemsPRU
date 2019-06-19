@@ -20,6 +20,23 @@ typedef struct {
   rtems_pruss_shell_handler   handler; /**< The sub-command's handler. */
   const char*                 help;    /**< The sub-command's help. */
 }rtems_pruss_shell_cmd;
+/**
+ * Object print data.
+ */
+typedef struct
+{
+  const rtems_printer* printer;           /**< The RTEMS printer. */
+  bool prussdrv_init;                     /**< Print if prssdrv is initialised. */
+  int pruss_number;                       /**< The PRU number. */
+  bool pruss0_open;                       /**< Print PRU0 is open. */
+  bool pruss1_open;                       /**< Print PRU0 is open .*/
+  unsigned int prruss0_host_interrupt;    /*< Print PRU0 host interrupt. */
+  unsigned int prruss1_host_interrupt;    /*< Print PRU1 host interrupt .*/
+  bool pruss0_executing;                  /**< Print PRU0 is running. */
+  bool pruss1_executing;                  /**< Print PRU1 is running. */
+  char* pruss0_file_name;                 /**< Print file running on pruss0. */
+  char* pruss1_file_name;                 /**< Print file running on pruss01. */
+} rtems_rtl_obj_print;
 
 int
 rtems_pruss_shell_status (const rtems_printer* printer,
@@ -39,14 +56,29 @@ rtems_pruss_shell_init (const rtems_printer* printer,
     rtems_printf (printer, "prussdrv_open() failed\n");
     return 1;
   }
+
+  tpruss_intc_initdata pruss_intc_initdata = PRUSS_INTC_INITDATA;
+  prussdrv_pruintc_init(&pruss_intc_initdata);
+
   return 0;
 }
 
+/* Loads binary file to the pruss.
+Pruss has to be initialised first. */
 int
 rtems_pruss_shell_load (const rtems_printer* printer,
                         int                  argc,
                         char*                argv[])
 {
+//  printf("Executing program and waiting for termination\n");
+  if (argc == 2) {
+    if (prussdrv_load_datafile(0 /* PRU0 */, argv[1]) < 0) {
+      rtems_printf (printer "Error loading %s\n", argv[1]);
+      exit(-1);
+    }
+  }
+  rtems_printf (&printer, "error: unknown option: %s\n", argv[arg]);
+  return -1;
 }
 
 int
@@ -54,6 +86,7 @@ rtems_pruss_shell_run (const rtems_printer* printer,
                         int                  argc,
                         char*                argv[])
 {
+
 }
 
 int
