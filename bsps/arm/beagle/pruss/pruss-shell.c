@@ -73,11 +73,11 @@ rtems_pruss_shell_load (const rtems_printer* printer,
 //  printf("Executing program and waiting for termination\n");
   if (argc == 2) {
     if (prussdrv_load_datafile(0 /* PRU0 */, argv[1]) < 0) {
-      rtems_printf (printer "Error loading %s\n", argv[1]);
+      rtems_printf (printer, "Error loading %s\n", argv[1]);
       exit(-1);
     }
   }
-  rtems_printf (&printer, "error: unknown option: %s\n", argv[arg]);
+  rtems_printf (&printer, "error: unknown option: %s\n", argv[argc]);
   return -1;
 }
 
