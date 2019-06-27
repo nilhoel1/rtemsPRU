@@ -4,3 +4,5 @@ configure
 config.h.in
 Makefile.in
 doc
+
+\.vscode/

@@ -46,7 +46,7 @@ void bsp_fdt_copy(const void *src)
   uint32_t *d = RTEMS_DECONST(uint32_t *, &bsp_fdt_blob[0]);
 #endif
 
-  if (s != d) {
+  if (s != NULL && s != d) {
     size_t m = MIN(sizeof(bsp_fdt_blob), fdt_totalsize(src));
     size_t n = (m + sizeof(*d) - 1) / sizeof(*d);
     size_t i;
